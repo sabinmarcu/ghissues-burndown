@@ -15,9 +15,12 @@
         }).booleanify().doubleDashArgs;
 
     var host    = args.host || process.env.IP || "0.0.0.0",
-        port    = args.port || process.env.PORT || "8000",
+        port    = parseInt(args.port || process.env.PORT || "8000"),
         verbose = args.verbose || process.env.DEBUG || false,
         DEBUG   = require("debug");
+
+    process.env.PORT = port;
+    process.env.IP   = host;
 
     DEBUG.enable("app:error*");
     DEBUG.enable("app:warning*");
@@ -39,7 +42,7 @@
     } else {
 
         debug.log("The application is starting up...");
-        var Grabber = require("./grabber");
+        var Grabber = require("./server/grabber");
 
         if (args.repository !== null && typeof args.repository !== "undefined") {
 
@@ -94,7 +97,7 @@
         } else {
 
             debug.log("Accessing information by using an API");
-            var Server = new (require("./http"))(host, port, args["api-only"]);
+            var Server = new (require("./server/http"))(host, port, args["api-only"]);
 
         }
     }

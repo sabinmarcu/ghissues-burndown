@@ -98,7 +98,20 @@
 
         debug.log("Starting HTTP server on " + host + ":" + port + " ...");
         try {
-            App.listen(port, host);   
+            App.listen(port, host);
+            debug.log("Running in the " + require("path").resolve(__dirname) + " directory.");
+            if (!apionly) {
+                App.get("*", function(req, res) {
+
+                    debug.log("Requested", (require("path")).resolve(__dirname + "/../public" + req.url));
+                    (require("fs")).exists((require("path")).resolve(__dirname + "/../public" + req.url), function(exists) {
+                        if (exists && (req.url !== "/")) res.sendFile(require("path").resolve(__dirname + "/../public" + req.url));
+                        else {
+                            res.sendFile(require("path").resolve(__dirname + "/../public/index.html"));
+                        }
+                    });
+                });     
+            }
         } catch (e) {
             debug.error("An error has occurred while starting the server.", e.stack);
         }
