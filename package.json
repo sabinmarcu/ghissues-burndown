@@ -1,0 +1,12 @@
+{
+  "name": "ghissuesburndown",
+  "author": "Sabin Marcu <sabinmarcu@gmail.com>",
+  "version": "0.0.1",
+  "dependencies": {
+    "cliparser": "^0.2.2",
+    "debug": "^2.1.1",
+    "express": "^4.11.2",
+    "github": "^0.2.3",
+    "node-uuid": "^1.4.2"
+  }
+}
