@@ -14,20 +14,20 @@ This project (when complete) will allow any user to run a small, simple app that
 | 0.3 | Setting up a server | Done |
 | 0.3 | Setting up an API | Done | 
 | 0.3 | Testing the API | Done | 
-| 0.3 | Dealing with expiring grabbers | Open |
-| 0.3 | Transfer this table into issues | Open |
-| 0.4 | Setting up a public folder | Open |
-| 0.4 | Building an interface | Open |
-| 0.4 | Setting up the API consuming | Open |
-| 0.4 | Test the GUI | Open | 
-| 0.4 | Market and get collaborators / forks | Open |
-| 0.5 | Set up a CLI binary | Open |
-| 0.5 | Publish on NPM | Open | 
-| 0.5 | Test NPM installations | Open |
-| 0.5 | Hook NPM CLI to local repos (if possible) | Open | 
-| 0.5 | Deploy application on Heroku / NodeJitsu | Open |
-| pre 1.0 | Write up a good README | Open | 
-| 1.0 | All of the above | Open |
+| 0.3 | Dealing with expiring grabbers | In Progress |
+| 0.3 | Transfer this table into issues | In Progress |
+| 0.4 | Setting up a public folder | In Progress |
+| 0.4 | Building an interface | Not Started |
+| 0.4 | Setting up the API consuming | Not Started |
+| 0.4 | Test the GUI | Not Started | 
+| 0.4 | Market and get collaborators / forks | Not Started |
+| 0.5 | Set up a CLI binary | Not Started |
+| 0.5 | Publish on NPM | Not Started | 
+| 0.5 | Test NPM installations | Not Started |
+| 0.5 | Hook NPM CLI to local repos (if possible) | Not Started | 
+| 0.5 | Deploy application on Heroku / NodeJitsu | Not Started |
+| pre 1.0 | Write up a good README | Not Started | 
+| 1.0 | All of the above | Not Started |
 
 ## Usage 
 
