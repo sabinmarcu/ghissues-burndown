@@ -3,6 +3,7 @@
   "author": "Sabin Marcu <sabinmarcu@gmail.com>",
   "version": "0.0.1",
   "dependencies": {
+    "body-parser": "^1.11.0",
     "cliparser": "^0.2.2",
     "debug": "^2.1.1",
     "express": "^4.11.2",

@@ -1,4 +1,4 @@
-var info    = require("./package.json"),
+var info    = process.appinfo = require("./package.json"),
     args    = (new (require("cliparser"))(process.argv)).link({
         "-v": "--version",
         "-h": "--help",
@@ -7,7 +7,8 @@ var info    = require("./package.json"),
         "-V": "--verbose",
         "-u": "--username",
         "-P": "--password",
-        "-r": "--repository"
+        "-r": "--repository",
+        "-a": "--api-only"
     }).booleanify().doubleDashArgs;
 
 var host    = args.host || process.env.IP || "0.0.0.0",
@@ -37,7 +38,7 @@ if (args.version) {
     debug.log("The application is starting up...");
     var Grabber = require("./grabber");
 
-    if ((args.username !== null && typeof args.username !== "undefined") && (args.password !== null && typeof args.password !== "undefined") && (args.repository !== null && typeof args.repository !== "undefined")) {
+    if (args.repository !== null && typeof args.repository !== "undefined") {
 
         debug.log("Accessing information from the command line!");
 
@@ -56,23 +57,30 @@ if (args.version) {
             grabber.getIssues(repo[0], repo[1], function(results) {
                 debug.log("Got the results from the Grabber!");
 
-                DEBUG.enable("result"); var printer = DEBUG("result");
-                printer("There are " + results.ALL + " issues in total on repository " + args.repository + " of which " + results.CLOSED + " are closed!");
+                if (results.HAS_ERROR) {
 
-                var file = (require("node-uuid")).v1() + ".csv",
-                    fs   = require("fs");
+                    debug.error("There has been an error while grabbing the issues.", results.ERROR);
 
-                debug.log("Computing data for a CSV export.");
+                } else {
 
-                var arr = results.getClosedTitles();
-                results.getClosedDates().map(function(item, index) {
-                    arr[index] = (index + 1) + "," + arr[index] + "," + new Date(item).toLocaleString("en-GB");
-                });
-                arr.unshift("Number,Title,Date");
+                    DEBUG.enable("result"); var printer = DEBUG("result");
+                    printer("There are " + results.ALL + " issues in total on repository " + args.repository + " of which " + results.CLOSED + " are closed!");
 
-                debug.log("Printing the titles and closed dates into a CSV file.", file);
-                fs.writeFileSync(file, arr.join("\n"));
+                    var file = (require("node-uuid")).v1() + ".csv",
+                        fs   = require("fs");
 
+                    debug.log("Computing data for a CSV export.");
+
+                    var arr = results.getClosedTitles();
+                    results.getClosedDates().map(function(item, index) {
+                        arr[index] = (index + 1) + "," + arr[index] + "," + new Date(item).toLocaleString("en-GB");
+                    });
+                    arr.unshift("Number,Title,Date");
+
+                    debug.log("Printing the titles and closed dates into a CSV file.", file);
+                    fs.writeFileSync(file, arr.join("\n"));
+
+                }
             });
         } catch (e) {
             debug.error("There has been an error setting things up!", e.stack);
@@ -81,10 +89,8 @@ if (args.version) {
 
     } else {
 
-        var Grabber = require("./grabber"),
-            Server = require("./")
-
-        // App.listen(host, port);
+        debug.log("Accessing information by using an API");
+        var Server = new (require("./http"))(host, port, args["api-only"]);
 
     }
 }
