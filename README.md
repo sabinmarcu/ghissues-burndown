@@ -5,7 +5,7 @@ This project (when complete) will allow any user to run a small, simple app that
 ## Done so far (will be mirrored in issues)
 
 | Version | Description | Status |
-|:---:|:---:|:---:|
+|:---|:---|:---:|
 | 1 | Implement Grabbers | Done |
 | 1 | Implement a basic Server | Done |
 | 1 | Implement a CLI | Done |
