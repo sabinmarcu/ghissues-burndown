@@ -105,4 +105,4 @@ $ node server --host hostname --port port
 
 ## Have fun using this module. I know I will
 
-`Blood for the Blood God!`, `Skulls for the Skull Throne!`
+`Blood for the Blood God!`, `Skulls for the Skull Throne!`, `Death to the False Emperor!`
