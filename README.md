@@ -44,7 +44,7 @@ First things, first, after you've cloned the repository, just cd into the direct
 
 ```
 $ cd ghissues-burndown
-$ **npm** *install*
+$ npm install
 ```
 
 The above will make sure all dependencies are installed, and the app is ready to go.
@@ -54,30 +54,30 @@ The above will make sure all dependencies are installed, and the app is ready to
 To use the cli, you must simply run a command like the following : 
 
 ```
-$ node server **-r** *sabinmarcu/ghissues-burndown*
-$ node server **--repository** *sabinmarcu/ghissues-burndown*
+$ node server -r sabinmarcu/ghissues-burndown
+$ node server --repository sabinmarcu/ghissues-burndown
 ```
 
 Both of the above instructions are equivalent. A full list of command line arguments is available as a help command (Note: currently not implemented. Give me a day or two) like so: 
 
 ```
-$ node server **-h**
-$ node server **--help**
+$ node server -h
+$ node server --help
 ```
 
 At the same time, you can supply as arguments your github username and password (as of this time, no other authentication method is implemented): 
 
 ```
-$ node server **-u** username **-P** password **-r** repository
-$ node server **--user** username **--password** password **--repository** repository
+$ node server -u username -P password -r repository
+$ node server --user username --password password --repository repository
 ```
 
 Also, any command can be executed with the `-V` parameter to enable verbose mode and see exactly what's going on in there : 
 
 ```
-$ node server **-V** **-r** repository
-$ node server **-Vr** repository
-$ node server **--verbose** **--repository** repository
+$ node server -V -r repository
+$ node server -Vr repository
+$ node server --verbose --repository repository
 ```
 
 #### API
@@ -85,22 +85,22 @@ $ node server **--verbose** **--repository** repository
 To run the application in API mode (without the webapp), all you have to do is supply the `-a` argument (or `--api-only`): 
 
 ```
-$ node server **-a**
-$ node server **-Va** 
-$ node server **--api-only**
-$ node server **--api-only** **-v**
-$ node server **--api-only** **--verbose**
+$ node server -a
+$ node server -Va 
+$ node server --api-only
+$ node server --api-only -v
+$ node server --api-only --verbose
 ```
 
 When running the server (with or without the webapp) it is worth mentioning that you can alter the hostname and the port on which the server will run like so: 
 
 ```
-$ node server **-H** hostname
-$ node server **-p** port
-$ node server **-H** hostname **-p** port
-$ node server **--host** hostname
-$ node server **--port** port
-$ node server **--host** hostname **--port** port
+$ node server -H hostname
+$ node server -p port
+$ node server -H hostname -p port
+$ node server --host hostname
+$ node server --port port
+$ node server --host hostname --port port
 ```
 
 ## Have fun using this module. I know I will
