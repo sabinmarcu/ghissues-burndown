@@ -80,27 +80,83 @@ $ node server -Vr repository
 $ node server --verbose --repository repository
 ```
 
+#### Web Server
+
+To run a web server (for API and/or Web Application), you must supply the `-s` argument (or `--server`). This will launch an express server with either `0.0.0.0` as address and `8000` port by default.
+
+```bash
+$ node server -s
+$ node server --server
+```
+
 #### API
 
 To run the application in API mode (without the webapp), all you have to do is supply the `-a` argument (or `--api-only`): 
 
 ```bash
-$ node server -a
-$ node server -Va 
-$ node server --api-only
-$ node server --api-only -v
-$ node server --api-only --verbose
+$ node server -sa
+$ node server -Vsa 
+$ node server -s --api-only
+$ node server --server --api-only -v
+$ node server --server --api-only --verbose
 ```
 
 When running the server (with or without the webapp) it is worth mentioning that you can alter the hostname and the port on which the server will run like so: 
 
 ```bash
-$ node server -H hostname
-$ node server -p port
-$ node server -H hostname -p port
-$ node server --host hostname
-$ node server --port port
-$ node server --host hostname --port port
+$ node server -sH hostname
+$ node server -sp port
+$ node server -sH hostname -p port
+$ node server --server --host hostname
+$ node server --server --port port
+$ node server --server --host hostname --port port
+
+#### Web Application
+
+To run the application with the web application, simply run it as you would in API mode, but without specifying the `-a` parameter.
+
+```bash
+$ node server -s 
+$ node server --server 
+```
+
+However, if you wish to work on the web application (develop), then it is worth mentioning dynamic content compiling, which will generate a new version of the content on each request. This is done with the `-c` parameter, just as compiling.
+
+```bash
+$ node server -sc 
+$ node server -c --server 
+$ node server -s --compile 
+$ node server --server --compile
+```
+
+At the same time, the compiler will take into accout the use (or lack of use) of the **bundle** argument (see @ Compiling the Web Application, aka next paragraph) by using the `-b` argument (or `--bundle`) as such : 
+
+```bash
+$ node server -scb 
+$ node server -c --server --bundle
+$ node server -s --compile --bundle
+$ node server -b --server --compile
+```
+
+
+#### Compiling the Web Application
+
+The web application can be compiled without the need for a server. The environment is set up by default to not bundle the sources, and write them in the specified folders and filenames. This default configuration can be found in the `config/sources.json` file. I recommend looking over it at least once.
+
+Now, to compile the application, all you must do is use the `-c` (or `--compile`) argument while running the tool. 
+
+```bash
+$ node server -c
+$ node server --compile
+```
+
+However, if you want to build for production and overwrite any bundle configurations (bundle everything), then just supply the `-b` argument (or `--bundle`).
+
+```bash
+$ node server -cb
+$ node server -c --bundle
+$ node server -b --compile
+$ node server --bundle --compile
 ```
 
 ## Have fun using this module. I know I will
