@@ -1,6 +1,5 @@
 (function(){
     var DEBUG  = require("debug");
-    DEBUG.enable("app:*");
     var    debug  = {
             warning: DEBUG("app:warning:grabber"),
             error  : DEBUG("app:error:grabber"),
@@ -70,7 +69,11 @@
             }
         ];
 
+<<<<<<< HEAD
         if (_exists(cnf)) _mixin(config, cnf);
+=======
+        if (_exists(cnf)) _mixin(config, cnf || {});
+>>>>>>> develop
 
         var packages = {
             application: {
@@ -96,7 +99,7 @@
 
         var Runner = function(options, success, error) {
             var promise = new Promise(function(accept, reject){ accept(); });
-            _mixin(opts.compile, config, options);
+            _mixin(opts.compile, config || {}, options || {});
             return promise
                 .then(compileStart)
                 .then(compileSources)
@@ -109,7 +112,7 @@
 
         var StylesRunner = function(options, success, error) {
             var promise = new Promise(function(accept, reject){ accept(); });
-            _mixin(opts.compile, config, options);
+            _mixin(opts.compile, config || {}, options || {});
             return promise.then(function(){ return null; })
                 .then(compileStyles)
                 .then(success || pass)

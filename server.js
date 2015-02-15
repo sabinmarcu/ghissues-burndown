@@ -12,8 +12,9 @@
             "-P": "--password",
             "-r": "--repository",
             "-a": "--api-only",
-            "-b": "--bundle",
+            "-s": "--server",
             "-c": "--compile",
+            "-b": "--bundle",
             "-t": "--test"
         }).booleanify().doubleDashArgs;
 
@@ -43,11 +44,10 @@
         debug.log("Displaying Help");
         // require("./help")(info); // TODO do the help
     } else if (args.test) {
-        var Compiler = (new (require("./server/compiler"))());
-        Compiler.compile();
-    } else {
+        // User this part whenever you want to test something quickly
+    } else if (args.server) {
 
-        debug.log("The application is starting up...");
+        debug.log("The application is starting up online...");
         var Grabber = require("./server/grabber");
 
         if (args.repository !== null && typeof args.repository !== "undefined") {
@@ -109,5 +109,15 @@
 
             Server.start();
         }
+    } else if (args.compile) {
+        debug.log("The application will now compile the web application");
+
+        var Compiler = new (require("./server/compiler"))();
+        Compiler.compile();
+        Compiler.compileStyles();
+
+        debug.log("Finished compiling everything");
+    } else {
+        console.log("Instruction unknown! Please run the tool using --help to learn more.");
     }
 })();
