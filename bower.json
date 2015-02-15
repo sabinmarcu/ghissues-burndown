@@ -1,0 +1,22 @@
+{
+  "name": "ghissuesnode",
+  "version": "0.2.0",
+  "homepage": "https://github.com/sabinmarcu/ghissues-burndown",
+  "authors": [
+    "Sabin Marcu <sabinmarcu@gmail.com>"
+  ],
+  "description": "GitHub Issues to Burndown Charts",
+  "main": "server.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.7.1"
+  }
+}

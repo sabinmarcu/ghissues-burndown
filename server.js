@@ -2,7 +2,7 @@
     "use strict";
 
     var info    = process.appinfo = require("./package.json"),
-        args    = (new (require("cliparser"))(process.argv)).link({
+        args    = process.args    = (new (require("cliparser"))(process.argv)).link({
             "-v": "--version",
             "-h": "--help",
             "-p": "--port",
@@ -11,7 +11,10 @@
             "-u": "--username",
             "-P": "--password",
             "-r": "--repository",
-            "-a": "--api-only"
+            "-a": "--api-only",
+            "-b": "--bundle",
+            "-c": "--compile",
+            "-t": "--test"
         }).booleanify().doubleDashArgs;
 
     var host    = args.host || process.env.IP || "0.0.0.0",
@@ -39,6 +42,9 @@
     } else if (args.help) {
         debug.log("Displaying Help");
         // require("./help")(info); // TODO do the help
+    } else if (args.test) {
+        var Compiler = (new (require("./server/compiler"))());
+        Compiler.compile();
     } else {
 
         debug.log("The application is starting up...");
@@ -99,6 +105,9 @@
             debug.log("Accessing information by using an API");
             var Server = new (require("./server/http"))(host, port, args["api-only"]);
 
+            if (args.compile !== null && typeof args.compile !== "undefined" && args.compile) Server.injectCompiler(new (require("./server/compiler"))());
+
+            Server.start();
         }
     }
 })();

@@ -1,0 +1,30 @@
+{
+    "public": {
+        "root": "public/",
+        "js": "js/",
+        "css": "css/"
+    },
+    "packages": {
+        "application": {
+            "paths": [
+               "src"
+            ],
+            "filename": "application.js",
+            "folder": "js",
+            "compiler": "compile",
+            "write": true
+        }, 
+        "stylesheets": {
+            "paths": [
+                "src/stylesheets/"
+            ],
+            "content-type": "text/css",
+            "index": "src/stylesheets/index.styl",
+            "filename": "styles.css",
+            "folder": "css",
+            "compiler": "compileStyles",
+            "write": true,
+            "bundle": false
+        }
+    }
+}
