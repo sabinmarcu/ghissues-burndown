@@ -17,7 +17,7 @@
 
         debug.log("Setting up the internals of the server!");
         var apionly = onlyapi !== null && typeof onlyapi !== "undefined" && onlyapi,
-            grabbers = {}, expires = {};
+            grabbers = {}, expires = {}, compiler = false;
 
         var createGrabber = function(username, password) {
             var expiration = new Date(); 
@@ -96,26 +96,53 @@
             });
         });
 
-        debug.log("Starting HTTP server on " + host + ":" + port + " ...");
-        try {
-            App.listen(port, host);
-            debug.log("Running in the " + require("path").resolve(__dirname) + " directory.");
-            if (!apionly) {
-                App.get("*", function(req, res) {
+        return {
+            start: function() {
 
-                    debug.log("Requested", (require("path")).resolve(__dirname + "/../public" + req.url));
-                    (require("fs")).exists((require("path")).resolve(__dirname + "/../public" + req.url), function(exists) {
-                        if (exists && (req.url !== "/")) res.sendFile(require("path").resolve(__dirname + "/../public" + req.url));
-                        else {
-                            res.sendFile(require("path").resolve(__dirname + "/../public/index.html"));
-                        }
-                    });
-                });     
+                debug.log("Starting HTTP server on " + host + ":" + port + " ...");
+                try {
+
+                    var sourceInfo = JSON.parse(require("fs").readFileSync(require("path").resolve(__dirname + "/../config/sources.json"), "utf-8"));
+                    debug.log("Running in the " + require("path").resolve(__dirname + "/../" + sourceInfo.public.root) + " directory.");
+
+                    if (compiler) {
+                        debug.log("Creating the endpoints for dynamic compiling...");
+                        var hookPackage = function(pkg, compile) {
+                            debug.log("Hooking ", "/" + sourceInfo.public[pkg.folder] + pkg.filename);
+                            App.get("/" + sourceInfo.public[pkg.folder] + pkg.filename, function(req, res) {
+                                debug.log("Compiling source ", req.url);
+                                compile().then(function(source){
+                                    res.set("Content-Type", pkg["content-type"] || "application/javascript");
+                                    res.status(200).send(source);
+                                }, function(error){
+                                    res.send(500).end("There has been an error while compiling this file. Check logs for more info!");
+                                });
+                            });
+                        };
+                        for (var pkg in sourceInfo.packages) hookPackage(sourceInfo.packages[pkg], compiler[sourceInfo.packages[pkg].compiler || "compile"]);
+                    }
+
+                    if (!apionly) {
+                        App.get("*", function(req, res) {
+                            debug.log("Requested", (require("path").resolve(__dirname + "/../" + sourceInfo.public.root + req.url)));
+                            (require("fs")).exists(require("path").resolve(__dirname + "/../" + sourceInfo.public.root + req.url), function(exists) {
+                                if (exists && (req.url !== "/")) res.sendFile(require("path").resolve(__dirname + "/../public" + req.url));
+                                else {
+                                    res.sendFile(require("path").resolve(__dirname + "/../public/index.html"));
+                                }
+                            });
+                        });     
+                    }
+                    App.listen(port, host);
+                } catch (e) {
+                    debug.error("An error has occurred while starting the server.", e.stack);
+                }
+
+            }, 
+            injectCompiler: function(Compiler) {
+                compiler = Compiler;
             }
-        } catch (e) {
-            debug.error("An error has occurred while starting the server.", e.stack);
-        }
-
+        };
     };
     debug.log("Finished bootstrapping HTTP Server");
 
