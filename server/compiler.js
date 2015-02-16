@@ -11,18 +11,18 @@
                 base    = args[0],
                 objects = args.splice(1);
 
-            for (var index in objects) {    
+            for (var index in objects) {
 
-                var object = objects[index];    
-                if (_exists(object)) { 
+                var object = objects[index];
+                if (_exists(object)) {
                     for (var key in object) {
                         base[key] = object[key];
-                    }  
+                    }
                 } else debug.warning("Attempting to mixin an invalid object!", object);
-            } 
+            }
 
             return base;
-        };    
+        };
 
     var stitch = require("stitchw"),
         stylus = require("stylus"),
@@ -43,11 +43,11 @@
             "           element.setAttribute('type', 'text/css');" +
             "           element.setAttribute('rel', 'stylesheet');" +
             "           element.setAttribute('href', '/css/#{json.name}.css');" +
-            "       }" + 
-            "       element.id = 'compiled_styles';" + 
-            "       return element;" + 
+            "       }" +
+            "       element.id = 'compiled_styles';" +
+            "       return element;" +
             "   };",
-        end: "" + 
+        end: "" +
             "   window.addEventListener('load', function() {" +
             "       new (require('Application'))(getStylesheets);" +
             "   }" +
@@ -65,15 +65,11 @@
         }, sources = [], config = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../config/sources.json"), "utf-8")), extras = [
             {
                 type: "pre",
-                generator: function() { return "window.AppInfo = " + fs.readFileSync(path.resolve(__dirname + "/../package.json")) + ";"; }   
+                generator: function() { return "window.AppInfo = " + fs.readFileSync(path.resolve(__dirname + "/../package.json")) + ";"; }
             }
         ];
 
-<<<<<<< HEAD
-        if (_exists(cnf)) _mixin(config, cnf);
-=======
         if (_exists(cnf)) _mixin(config, cnf || {});
->>>>>>> develop
 
         var packages = {
             application: {
@@ -149,7 +145,7 @@
         var compileStyles  = function(prev_source) {
             return new Promise(function(accept, reject){
                 try {
-                    debug.log("MILESTONE", "Compiling Styles"); 
+                    debug.log("MILESTONE", "Compiling Styles");
                     if (packages.stylesheets.config != opts.compile.packages.stylesheets) {
                         debug.log("Creating new compiler for stylesheets (new options)");
                         packages.stylesheets.compiler.base =  path.resolve(__dirname + "/../" + opts.compile.packages.stylesheets.index);
