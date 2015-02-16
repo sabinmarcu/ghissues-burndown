@@ -32,7 +32,7 @@
 
     var wrapFunction = {
         start: "(function(){" +
-            "   'use strict';" +
+            // "   'use strict';" +
             "   var getStylesheets = function() {" +
             "       var element;" +
             "       if (bundledStyles !== null && typeof(bundledStyles) !== 'undefined') {" +
@@ -49,8 +49,8 @@
             "   };",
         end: "" +
             "   window.addEventListener('load', function() {" +
-            "       new (require('bootstrap'))(getStylesheets);" +
-            "   }" +
+            "       (require('bootstrap'))(getStylesheets);" +
+            "   });" +
             "})();",
         devMode: function() {
             if (DEBUG.enabled("app:log*")) return "window.isDev = true;";

@@ -1,4 +1,7 @@
 (function() {
     "use strict";
-    document.write("<p>It's working!</p>");
+
+    module.exports = function(stylesFunc) {
+        document.write("<p>It's working!</p>");
+    };
 })();
