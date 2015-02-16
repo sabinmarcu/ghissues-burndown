@@ -110,6 +110,7 @@ $ node server -sH hostname -p port
 $ node server --server --host hostname
 $ node server --server --port port
 $ node server --server --host hostname --port port
+```
 
 #### Web Application
 

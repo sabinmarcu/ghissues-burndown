@@ -1,9 +1,9 @@
 (function(){
     var DEBUG  = require("debug");
     var    debug  = {
-            warning: DEBUG("app:warning:grabber"),
-            error  : DEBUG("app:error:grabber"),
-            log    : DEBUG("app:log:grabber")
+            warning: DEBUG("app:warning:compiler"),
+            error  : DEBUG("app:error:compiler"),
+            log    : DEBUG("app:log:compiler")
         },
         _exists = function(item) { return item !== null && typeof item !== "undefined"; },
         _mixin  = function(){
@@ -49,7 +49,7 @@
             "   };",
         end: "" +
             "   window.addEventListener('load', function() {" +
-            "       new (require('Application'))(getStylesheets);" +
+            "       new (require('bootstrap'))(getStylesheets);" +
             "   }" +
             "})();",
         devMode: function() {

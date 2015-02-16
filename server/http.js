@@ -133,7 +133,8 @@
                             });
                         });     
                     }
-                    App.listen(port, host);
+                    debug.log("These are the process arguments", process.env.PORT, process.env.IP);
+                    App.listen(process.env.PORT || port, process.env.IP || host);
                 } catch (e) {
                     debug.error("An error has occurred while starting the server.", e.stack);
                 }
